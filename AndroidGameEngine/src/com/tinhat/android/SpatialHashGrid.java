@@ -19,6 +19,7 @@ public class SpatialHashGrid {
 	}
 	
 	@SuppressWarnings("unchecked")
+	//cellSize should be at least 5 times greater than largest game object!!!
 	public SpatialHashGrid(float worldWidth, float worldHeight, float cellSize, int maxObjectsPerCell) {
 		this.cellSize = cellSize;
 		this.cellsPerRow = (int)FloatMath.ceil(worldWidth/cellSize);
@@ -37,6 +38,9 @@ public class SpatialHashGrid {
 		int[] cellIds = getCellIds(obj);
 		int i = 0;
 		int cellId = -1;
+		//an object can only exist in up to 4 cells at once, hence the <= 3.
+		//we ensure this is always true by making our cell-size at least 5 times
+		//greater than our largest game object.
 		while(i <= 3 && (cellId = cellIds[i++]) != -1) {
 			staticCells[cellId].add(obj);
 		}

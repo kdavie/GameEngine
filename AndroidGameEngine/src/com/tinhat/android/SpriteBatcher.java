@@ -41,7 +41,11 @@ public class SpriteBatcher {
 	}
 	
 	public void endBatch() {
+		
 		vertices.setVertices(verticesBuffer, 0, bufferIndex);
+		if(vertices.vertices.limit() == 0){
+			throw new IllegalArgumentException("length cannot be 0");
+		}
 		vertices.bind();
 		vertices.draw(GL10.GL_TRIANGLES, 0, spriteCount * 6);
 		vertices.unbind();
